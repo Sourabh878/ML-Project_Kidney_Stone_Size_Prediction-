@@ -1,0 +1,32 @@
+Algorithm 1: Kidney Stone Size Prediction (KSSP)
+
+Input: CT-Scan images of Kidney (axial view, coronal view)
+Output: Prediction of Kidney stone and size.
+
+Start:
+Step 1: Preprocess the image: Resize them to the target dimensions and normalize pixel values.
+Step 2: Load the pre-trained VGG16 model, excluding the top layer.
+Step 3: Compile the model using the Adam optimizer and Binary cross-entropy as the loss function.
+Step 4: Train the model using early stopping and model checkpointing to save the best weights.
+Step 5: Evaluate the model for accuracy and loss on validation and test datasets.
+Step 6: Predict the class probabilities and extract the class with the highest probability (i.e., stone or normal).
+
+Step 7: If (Prediction == Normal) then go to Step 12.
+        Else 
+        go to Step 8.
+
+Step 8: Extract the DPI of the image and compute the conversion factor for kidney stone size prediction,using Eq.(1).
+
+        Conversion Factor = 25.4 / DPI    -Eq.(1)
+
+Step 9: Preprocess the region of interest (ROI) by  Converting the image to grayscale, apply Gaussian blur, and set thresholding and the Coordinates for the type of image for detection.
+
+Step 10: Compute the size of the kidney stone in mm,using Eq.(2) and Eq.(3):
+
+         Length_px = max(width, height) - Eq.(2)
+ 
+         Length_mm = Length_px × Conversion_Factor - Eq.(3)
+
+Step 11: Output the image with the stone marked along with its size in mm.
+Step 12:End
+
